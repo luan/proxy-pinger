@@ -1,6 +1,10 @@
 require 'rubygems'
 require 'sinatra'
+require 'rdiscount'
+require 'coderay'
+
+use Rack::Static, :urls => ["/stylesheets"], :root => "public"
 
 get '/' do
-  "Trabalho de redes!"
+  erb :index
 end
