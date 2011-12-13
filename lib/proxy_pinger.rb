@@ -12,6 +12,7 @@ class ProxyPinger
     end
     
     if nport
+      puts "connecting to server on port #{nport}"
       @nserver = TCPSocket.new("127.0.0.1", nport)
     else
       @nserver = nil
