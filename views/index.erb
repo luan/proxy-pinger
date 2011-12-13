@@ -1,29 +1,58 @@
 <section>
   <header>
-    <h2>Server Program:</h2>
+    <h2>Library:</h2>
   </header>
 
   <article>
     <div class="code_block">
       <div class="code_header">
-        lib/client.rb
+        lib/proxy_pinger.rb
       </div>
-      <%= CodeRay.scan_file('lib/server.rb').html.div %>
+      <%= CodeRay.scan_file('lib/proxy_pinger.rb').html.div %>
     </div>
   </article>
 </section>
 
 <section>
   <header>
-    <h2>Client Program</h2>
+    <h2>Simulator:</h2>
   </header>
   
   <article>
     <div class="code_block">
       <div class="code_header">
-        lib/client.rb
+        bin/simulator.rb
       </div>
-      <%= CodeRay.scan_file('lib/client.rb').html.div %>
+      <%= CodeRay.scan_file('bin/simulator.rb').html.div %>
     </div>
   </article>
+</section>
+
+<section>
+  <header>
+    <h2>Main Program:</h2>
+  </header>
+  
+  <article>
+    <div class="code_block">
+      <div class="code_header">
+        bin/proxy_pinger.rb
+      </div>
+      <%= CodeRay.scan_file('bin/proxy_pinger.rb').html.div %>
+    </div>
+  </article>
+</section>
+
+<section>
+  <div class="code_block">
+    <div class="code_header">
+      Simulator output
+    </div>
+    <div class="CodeRay">
+      <div class="code">
+        <pre>$ ruby bin/simulator.rb
+<%= `ruby bin/simulator.rb` %></pre>
+      </div>
+    </div>
+  </div>
 </section>
