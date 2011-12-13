@@ -16,11 +16,11 @@ end.parse!
 
 if options.include? :port
   puts "starting port #{options[:port]}"
-  pp = ProxyPinger.new(options[:port], options[:next])
+  pp = ProxyPinger.new(options)
   pp.start
 else
   puts "starting client"
-  pp = ProxyPinger.new(nil, options[:next])
+  pp = ProxyPinger.new(options)
   pp.nserver.puts(gets.chomp)
   puts "(client) #{pp.nserver.gets.chomp}"
   pp.nserver.close

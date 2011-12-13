@@ -1,19 +1,23 @@
 require 'socket'
 
 class ProxyPinger
-  def initialize(port = nil, nport = nil)
-    @port = port
+  def initialize(options = {})
+    options.merge!(
+      :host => "127.0.0.1"
+    )
+
+    @port = options[:port]
     
-    if port
-      @server = TCPServer.new("127.0.0.1", port)
+    if options.include?(:port)
+      @server = TCPServer.new("0.0.0.0", options[:port])
       puts "(#{@port}) server up" if @server
     else
       @server = nil
     end
     
-    if nport
-      puts "connecting to server on port #{nport}"
-      @nserver = TCPSocket.new("127.0.0.1", nport)
+    if options.include?(:next) && options[:next]
+      puts "connecting to server on #{options[:host]}:#{options[:next]}"
+      @nserver = TCPSocket.new(options[:host], options[:next])
     else
       @nserver = nil
     end

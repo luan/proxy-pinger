@@ -7,9 +7,9 @@ def start_pingers(ports=[])
     puts "starting port #{port}"
     nport = port + 1
     nport = nil if port == ports.first
-    pingers << ProxyPinger.new(port, nport)
+    pingers << ProxyPinger.new(:port => port, :next => nport)
   end
-  pingers << ProxyPinger.new(nil, ports.last)
+  pingers << ProxyPinger.new(:next => ports.last)
   
   pingers.each do |pinger|
     if pinger == pingers.last
