@@ -89,47 +89,64 @@
       </div>
       <%= CodeRay.scan_file('lib/proxy_pinger.rb').html.div %>
     </div>
-  </article>
-</section>
+    
+    <p>
+      Com isto foi implementado um programa de linha de comando fazendo uso da biblioteca. A interface poderia ter sido qualquer uma, GTK, Qt, web, ou linha de comando. Para evitar de "sujar" nosso código com detalhes de implementação de interface resolvemos exemplificar com um programa mais simples. Linha de comando. Além disso, evitando dependências extras o programa ficou mais portável.
+    </p>
+    <p>
+      O programa pode receber três parâmetros: porta do TCPServer, host do próximo servidor na corrente e porta do próximo servidor na corrente. Serve tanto como cliente ou servidor, dependendo dos parâmetros passados ele se comportará como tal. O proxy_pinger é genérico, não houve necessidade de criar um executável para cliente e outro para servidor.
+    </p>
+    <p>
+      Seu código é bem simples, e pode ser compreendido pelos comentários.
+    </p>
+    
+    <h3>Programa:</h3>
 
-<section>
-  <header>
-    <h2>Main Program:</h2>
-  </header>
-  
-  <article>
     <div class="code_block">
       <div class="code_header">
         bin/proxy_pinger.rb
+        <div class="right">
+          <a href="/code/bin/proxy_pinger.rb.txt">versão texto puro</a>
+        </div>
       </div>
       <%= CodeRay.scan_file('bin/proxy_pinger.rb').html.div %>
     </div>
-  </article>
-</section>
 
-<section>
-  <header>
+    <p>
+      Foi ainda criado um simulador, para testes. Funciona exatamente a mesma coisa que o programa principal, mas criando vários proxy pingers num mesmo host. Os proxy pingers se conectam entre si, e sempre fazem ping ao host "google.com".
+    </p>
+    
+    <p>
+      O programa simulador foi criado exclusivamente para testes e não faz parte do código do trabalho. Foi utilizado para exemplificar o funcionamento e unificar os logs no relatório. Por isso, não foi comentado, apesar de não ser complexo para conhecedores da linguagem Ruby.
+    </p>
+
     <h2>Simulator:</h2>
-  </header>
-  
-  <article>
+
     <div class="code_block">
       <div class="code_header">
         bin/simulator.rb
+        
+        <div class="right">
+          <a href="/code/bin/simulator.rb.txt">versão texto puro</a>
+        </div>
       </div>
       <%= CodeRay.scan_file('bin/simulator.rb').html.div %>
     </div>
-  </article>
-</section>
 
-<section>
-  <div class="code_block">
-    <div class="code_header">
-      Simulator output
-    </div>
-    <div class="CodeRay">
-      <div class="code">
-        <pre>
+    <p>
+      A saída de todos os servidores (20000 a 20005) segue abaixo.
+    </p>
+    <p>
+      Os logs são simples, cada servidor é identificado pela sua porta entre parenteses. As ações realizadas por cada um estão explicitadas ao lado.
+    </p>
+    
+    <div class="code_block">
+      <div class="code_header">
+        Simulator output
+      </div>
+      <div class="CodeRay">
+        <div class="code">
+          <pre>
 $ ruby bin/simulator.rb
 starting port 20005
 (20005) server up
@@ -182,8 +199,35 @@ round-trip min/avg/max/stddev = 15.852/16.463/17.272/0.596 ms
 (20001) got result google.com is up
 (20000) got result google.com is up
 (client) google.com is up
-        </pre>
+          </pre>
+        </div>
       </div>
     </div>
-  </div>
+  </article>
 </section>
+
+<footer>
+  <header>
+    <h2>
+      Notas basicamente irrelevantes
+    </h2>
+  </header>
+  <article>
+    <p>
+      O código de todo o trabalho e o website está hospedado no <a href="http://github.com/luan/proxy-pinger">github</a>.
+    </p>
+    <p>
+      Esta página foi construída utilizando o microframework web para Ruby <a href="http://www.sinatrarb.com/">Sinatra</a> e está hospedado gratuitamente pelo <a href"http://heroku.com">Heroku</a>. O highlight de código é feito pela RubyGem <a href="https://github.com/rubychan/coderay">CodeRay</a> e o layout foi pego emprestado do <a href="http://railscasts.com">Ryan Bates</a> (cujo código é opensource <a href="https://github.com/ryanb/railscasts">aqui</a>) com algumas modificações.
+    </p>
+    <p>
+      O diagrama de fluxo (<strong>Figura 1</strong>) foi desenhado usando o <a href="http://github.com/grape-editor/grape">Grape</a> (trabalho de graduação do <a href="http://luansantos.com/">Luan Haddad Ricardo dos Santos</a> e do <a href="http://jonatasteixeira.com/">Jonatas Teixeira</a>).
+    </p>
+    <p>
+      O subdomínio redes.fute.ba de <a href="http://www.fute.ba">fute.ba</a> foi cedido pelo time do fute.ba (que no caso somos nós mesmos).
+    </p>
+    
+    <p class="copy">
+      Dezembro, 2011 - Universidade Federal do Paraná
+    </a>
+  </article>
+</footer>
