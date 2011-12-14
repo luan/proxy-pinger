@@ -22,5 +22,5 @@ def start_pingers(ports=[])
   end
 end
 
-pingers = (22222..22226).to_a
+pingers = (20000..20005).to_a
 start_pingers(pingers)

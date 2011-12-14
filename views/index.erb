@@ -1,29 +1,89 @@
-<section>
-  <header>
-    <h2>Library:</h2>
-  </header>
+<header>
+  <h1>
+    <small>Trabalho de Redes II:</small> Proxy Pinger
+  </h1>
+  
+  <hr />
+  
+  <h3>
+    Fernando Cardoso Coelho
+    <div class="right">
+      GRR20082084
+    </div>
+  </h3>
+  <h3>
+    Luan Haddad Ricardo dos Santos
+    <div class="right">
+      GRR20083152
+    </div>
+  </h3>
+  
+  <hr />
+</header>
 
+<section>
   <article>
+    <header>
+      <h2>
+        Introdução
+      </h2>
+    </header>
+    <p>
+      O trabalho foi feito usando <a href="http://ruby-lang.org">Ruby</a> e sua biblioteca de <a href="http://ruby-doc.org/stdlib-1.9.3/libdoc/socket/rdoc/index.html">sockets</a> para comunicação usando <strong>TCP</strong> e <a href="http://www.ruby-doc.org/core-1.9.3/Thread.html">Thread</a> para gerenciar conexões concorrentes, por fim o comando <a href="http://linux.about.com/od/commands/l/blcmdl8_ping.htm">ping</a> do Unix foi a implementação do ICMP escolhida. Utilizamos orientação a objetos para organizar o código.
+    </p>
+    <p>
+      <em>Resumindo</em>:
+      <ul>
+        <li><a href="http://ruby-lang.org">Ruby</a></li>
+        <li><strong>TCP</strong></li>
+        <li><a href="http://ruby-doc.org/stdlib-1.9.3/libdoc/socket/rdoc/index.html">socket</a></li>
+        <li><a href="http://www.ruby-doc.org/core-1.9.3/Thread.html">Thread</a></li>
+        <li><a href="http://linux.about.com/od/commands/l/blcmdl8_ping.htm">ping</a></li>
+      </ul>
+    </p>
+  </article>
+  
+  <article>
+    <header>
+      <h2>
+        O que foi feito
+      </h2>
+      <div class="center">
+        <img src="/images/flow.png" />
+        <p class="legend">
+          <strong>Figura 1:</strong> Fluxo de execução do ProxyPinger.<br />
+          <em>Em preto</em>: requisições de ping vão.<br />
+          <em>Em azul</em>: respostas voltam.<br />
+          <em>Em verde</em>: ping propriamente dito.<br />
+        </p>
+      </div>
+    </header>
+    <p>
+      Fizemos uma biblioteca proxy_pinger que contém uma única classe ProxyPinger. Essa classe é responsável por ser tanto cliente como servidor no sistema desenvolvido.
+    </p>
+    <p>
+      Cada instância de ProxyPinger pode possuir um <a href="http://ruby-doc.org/stdlib-1.9.3/libdoc/socket/rdoc/TCPSocket.html">TCPSocket</a> (@nserver) e/ou um <a href="http://ruby-doc.org/stdlib-1.9.3/libdoc/socket/rdoc/TCPServer.html">TCPServer</a> (@server).
+    </p>
+    <p>
+      Os proxies intermediários possuem tanto o <a href="http://ruby-doc.org/stdlib-1.9.3/libdoc/socket/rdoc/TCPSocket.html">TCPSocket</a> quanto o <a href="http://ruby-doc.org/stdlib-1.9.3/libdoc/socket/rdoc/TCPServer.html">TCPServer</a>. O <a href="http://ruby-doc.org/stdlib-1.9.3/libdoc/socket/rdoc/TCPServer.html">TCPServer</a> escuta clientes que possívelmente requisitarão pings, respondendo-as, enquanto o <a href="http://ruby-doc.org/stdlib-1.9.3/libdoc/socket/rdoc/TCPSocket.html">TCPSocket</a> repassa requisições de ping para os servidores subsequentes na corrente e recebe resposta do mesmo para repassar ao anterior.
+    </p>
+    <p>
+      Um cliente (ou seja, o primeiro proxy pinger na corrente) possui apenas um <a href="http://ruby-doc.org/stdlib-1.9.3/libdoc/socket/rdoc/TCPSocket.html">TCPSocket</a>, já que ele não escuta nenhum outro cliente não há necessidade de criarmos um <a href="http://ruby-doc.org/stdlib-1.9.3/libdoc/socket/rdoc/TCPServer.html">TCPServer</a> para tal responsabilidade.
+    </p>
+    <p>
+      Chamamos de servidor o último pinger da corrente, ele é responsável agora por executar o ping propriamente dito, utizando o <a href="http://linux.about.com/od/commands/l/blcmdl8_ping.htm">ping</a> do unix. Não possui um <a href="http://ruby-doc.org/stdlib-1.9.3/libdoc/socket/rdoc/TCPSocket.html">TCPSocket</a>, apenas um <a href="http://ruby-doc.org/stdlib-1.9.3/libdoc/socket/rdoc/TCPServer.html">TCPServer</a> no qual recebe requisições de ping e as responde.
+    </p>
+    
+    <h3>Biblioteca:</h3>
+
     <div class="code_block">
       <div class="code_header">
         lib/proxy_pinger.rb
+        <div class="right">
+          <a href="/code/lib/proxy_pinger.rb.txt">versão texto puro</a>
+        </div>
       </div>
       <%= CodeRay.scan_file('lib/proxy_pinger.rb').html.div %>
-    </div>
-  </article>
-</section>
-
-<section>
-  <header>
-    <h2>Simulator:</h2>
-  </header>
-  
-  <article>
-    <div class="code_block">
-      <div class="code_header">
-        bin/simulator.rb
-      </div>
-      <%= CodeRay.scan_file('bin/simulator.rb').html.div %>
     </div>
   </article>
 </section>
@@ -44,14 +104,81 @@
 </section>
 
 <section>
+  <header>
+    <h2>Simulator:</h2>
+  </header>
+  
+  <article>
+    <div class="code_block">
+      <div class="code_header">
+        bin/simulator.rb
+      </div>
+      <%= CodeRay.scan_file('bin/simulator.rb').html.div %>
+    </div>
+  </article>
+</section>
+
+<section>
   <div class="code_block">
     <div class="code_header">
       Simulator output
     </div>
     <div class="CodeRay">
       <div class="code">
-        <pre>$ ruby bin/simulator.rb
-<%= `ruby bin/simulator.rb` %></pre>
+        <pre>
+$ ruby bin/simulator.rb
+starting port 20005
+(20005) server up
+starting port 20004
+(20004) server up
+connecting to server on 127.0.0.1:20005
+starting port 20003
+(20003) server up
+connecting to server on 127.0.0.1:20004
+starting port 20002
+(20002) server up
+connecting to server on 127.0.0.1:20003
+starting port 20001
+(20001) server up
+connecting to server on 127.0.0.1:20002
+starting port 20000
+(20000) server up
+connecting to server on 127.0.0.1:20001
+connecting to server on 127.0.0.1:20000
+(20001) client connected
+(20005) client connected
+(20003) client connected
+(20002) client connected
+(20004) client connected
+(20000) client connected
+(20000) got host 'google.com'
+(20000) sending to next server
+(20001) got host 'google.com'
+(20001) sending to next server
+(20002) got host 'google.com'
+(20002) sending to next server
+(20003) got host 'google.com'
+(20003) sending to next server
+(20004) got host 'google.com'
+(20004) sending to next server
+(20005) got host 'google.com'
+(20005) pinging host 'google.com'
+PING google.com (74.125.234.115): 56 data bytes
+64 bytes from 74.125.234.115: icmp_seq=0 ttl=54 time=17.272 ms
+64 bytes from 74.125.234.115: icmp_seq=1 ttl=54 time=15.852 ms
+64 bytes from 74.125.234.115: icmp_seq=2 ttl=54 time=16.265 ms
+
+--- google.com ping statistics ---
+3 packets transmitted, 3 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 15.852/16.463/17.272/0.596 ms
+(20005) got result true
+(20004) got result google.com is up
+(20003) got result google.com is up
+(20002) got result google.com is up
+(20001) got result google.com is up
+(20000) got result google.com is up
+(client) google.com is up
+        </pre>
       </div>
     </div>
   </div>
