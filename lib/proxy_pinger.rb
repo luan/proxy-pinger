@@ -5,11 +5,14 @@ require 'socket'
 class ProxyPinger
   ##
   # Construtor, cria um Proxy Pinger dados os parametros:
-  # port: porta na qual o servidor do proxy será aberto (caso não seja o primeiro da corrente)
+  # port: porta na qual o servidor do proxy será aberto 
+  #  (caso não seja o primeiro da corrente)
   # host: host ao qual o pinger se conctara (proximo servidor na corrente)
-  # next: porta do próximo proxy pinger (nulo caso seja o último da corrente)
+  # next: porta do próximo proxy pinger
+  #  (nulo caso seja o último da corrente)
   # 
-  # Estes parametros devem ser passados na hash options com as chaves da hash sendo os nomes acima.
+  # Estes parametros devem ser passados na hash options com as chaves da
+  #   hash sendo os nomes acima.
   #
   # = Exemplo
   #   pinger = ProxyPinger.new(:port => 22222, :host => 192.168.1.7, :next => 22223)
@@ -84,8 +87,9 @@ class ProxyPinger
           end
           puts "(#{@port}) got result #{result.to_s}"
           result = (result) ? "#{host} is up" : "#{host} is down"
-          # sendo o último ou um intermediário, temos uma resposta aqui para passar pra frente
-          # tal resposta serå devolvida recursivamente até que chegue no primeiro cliente
+          # sendo o último ou um intermediário, temos uma resposta aqui para passar
+          # pra frente tal resposta serå devolvida recursivamente até que chegue no
+          # primeiro cliente
           client.puts(result.to_s)
         end
       end
@@ -95,8 +99,8 @@ class ProxyPinger
   end
   
   ##
-  # Este método é um getter para o @nserver, utlizaremos isto para fins do primeiro cliente na
-  # corrente
+  # Este método é um getter para o @nserver, utlizaremos isto para fins do primeiro
+  # cliente na corrente
   #
   
   def nserver
