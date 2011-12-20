@@ -86,7 +86,7 @@ class ProxyPinger
             result = system("ping -c 3 #{host}")
           end
           puts "(#{@port}) got result #{result.to_s}"
-          result = (result) ? "#{host} is up" : "#{host} is down"
+          result = (result.to_s == "true") ? "#{host} is up" : "#{host} is down"
           # sendo o último ou um intermediário, temos uma resposta aqui para passar
           # pra frente tal resposta serå devolvida recursivamente até que chegue no
           # primeiro cliente
