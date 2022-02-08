@@ -4,8 +4,8 @@ GEM
     coderay (0.9.8)
     daemons (1.1.4)
     eventmachine (0.12.10)
-    rack (1.3.5)
-    rack-protection (1.1.4)
+    rack (1.6.13)
+    rack-protection (1.5.5)
       rack
     rdiscount (1.6.8)
     sinatra (1.3.1)
